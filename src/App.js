@@ -5,6 +5,7 @@ import { trainColors } from './utils/trainColors';
 import TrainColorFilter from './components/TrainColorFilter';
 import ServiceTypeFilter from './components/ServiceTypeFilter';
 import CarCountFilter from './components/CarCountFilter';
+import useInterval from './hooks/useInterval'
 
 
 const service_types = ['NoPassengers', 'Normal', 'Special', 'Unknown']
@@ -26,7 +27,6 @@ function App() {
 	})
 
 	const getAllTrains = async () => {
-
 		await fetch(`https://api.wmata.com/TrainPositions/TrainPositions?contentType=json`, {
 			headers: {
 				'api_key': 'a98a07b8e35347548cbc16f06384baff'
@@ -53,6 +53,10 @@ function App() {
 		getAllTrains()
 
 	}, [])
+
+	useInterval(() => {
+		getAllTrains()
+	}, 1000 * 60);
 
 
 	const getTrainColorFilter = () => {
