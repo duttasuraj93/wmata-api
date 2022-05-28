@@ -20,7 +20,7 @@ function App() {
 
 
 	const [filterStatus, setFilterStatus] = useState({
-		LineCode: 1,
+		LineCode: null,
 		ServiceType: null,
 		CarCount: null,
 	})
