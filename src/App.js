@@ -69,6 +69,19 @@ function App() {
 	}
 
 
+	useEffect(() => {
+
+		let filtered = trains;
+
+		if(filterStatus.CarCount || filterStatus.CarCount === 0) filtered = filtered.filter((item => item.CarCount === filterStatus.CarCount))
+		if(filterStatus.ServiceType) filtered = filtered.filter((item => item.ServiceType === filterStatus.ServiceType))
+		if(filterStatus.LineCode) filtered = filtered.filter((item => item.LineCode == (filterStatus.LineCode == 'BK' ? null : filterStatus.LineCode)))
+
+		setFilteredTrains(filtered)
+
+	}, [filterStatus])
+	
+
 
 	const filterTrains = (type, value) => {
 
@@ -76,16 +89,6 @@ function App() {
 			...prevState,
 			[type]: value === 'all' ? null : value
 		}));
-
-		let filtered = trains.filter((item => type === 'LineCode' && value === 'BK' ? item[type] == null : item[type] == value))
-
-		if (filterStatus.CarCount) filtered = filtered.filter(item => value === 'all' ? item : filterStatus.CarCount == item[type])
-
-		if (filterStatus.ServiceType) filtered = filtered.filter(item => filterStatus.ServiceType ? filterStatus.ServiceType : value)
-
-		if (filterStatus.LineCode) filtered = filtered.filter(item => item.LineCode == filterStatus.LineCode ? filterStatus.LineCode : value)
-
-		setFilteredTrains(filtered)
 
 	}
 
